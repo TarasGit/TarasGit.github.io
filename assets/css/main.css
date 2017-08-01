@@ -3151,21 +3151,21 @@
 		}
 
 	#menu {
-		-moz-transform: translateX(15em);
-		-webkit-transform: translateX(15em);
-		-ms-transform: translateX(15em);
-		transform: translateX(15em);
+		-moz-transform: translateX(20em);
+		-webkit-transform: translateX(20em);
+		-ms-transform: translateX(20em);
+		transform: translateX(20em);
 		-moz-transition: -moz-transform 0.5s ease;
 		-webkit-transition: -webkit-transform 0.5s ease;
 		-ms-transition: -ms-transform 0.5s ease;
 		transition: transform 0.5s ease;
 		-webkit-overflow-scrolling: touch;
-		background-image: url("../../images/pic03.jpg");
+		background-image: url("../../images/skyblue.jpg");
 		background-repeat: no-repeat;
  		background-size: auto 100%;
 		border: 1px solid #eee;
 		
-		color: #ffffff;
+		color: #000;
 		height: 100%;
 		max-width: 80%;
 		overflow-y: auto;
@@ -3237,7 +3237,7 @@
 		}
 
 	body.is-menu-visible #page-wrapper {
-		opacity: 0.35;
+		opacity: 0.50;
 	}
 
 		body.is-menu-visible #page-wrapper:before {
