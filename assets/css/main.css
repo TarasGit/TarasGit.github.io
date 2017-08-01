@@ -3151,16 +3151,20 @@
 		}
 
 	#menu {
-		-moz-transform: translateX(20em);
-		-webkit-transform: translateX(20em);
-		-ms-transform: translateX(20em);
-		transform: translateX(20em);
+		-moz-transform: translateX(15em);
+		-webkit-transform: translateX(15em);
+		-ms-transform: translateX(15em);
+		transform: translateX(15em);
 		-moz-transition: -moz-transform 0.5s ease;
 		-webkit-transition: -webkit-transform 0.5s ease;
 		-ms-transition: -ms-transform 0.5s ease;
 		transition: transform 0.5s ease;
 		-webkit-overflow-scrolling: touch;
-		background: #21b2a6;
+		background-image: url("../../images/pic03.jpg");
+		background-repeat: no-repeat;
+ 		background-size: auto 100%;
+		border: 1px solid #eee;
+		
 		color: #ffffff;
 		height: 100%;
 		max-width: 80%;
@@ -3169,7 +3173,7 @@
 		position: fixed;
 		right: 0;
 		top: 0;
-		width: 20em;
+		width: 15em;
 		z-index: 10002;
 	}
 
