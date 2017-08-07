@@ -1,0 +1,124 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<!--Converted with LaTeX2HTML 2008 (1.71)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>Conclusion</TITLE>
+<META NAME="description" CONTENT="Conclusion">
+<META NAME="keywords" CONTENT="NewTitelblatt">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2008">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="NewTitelblatt.css">
+
+<LINK REL="next" HREF="node22.html">
+<LINK REL="previous" HREF="node16.html">
+<LINK REL="up" HREF="NewTitelblatt.html">
+<LINK REL="next" HREF="node22.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A NAME="tex2html327"
+  HREF="node22.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html323"
+  HREF="NewTitelblatt.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html317"
+  HREF="node20.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html325"
+  HREF="node1.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html328"
+  HREF="node22.html">Bibliography</A>
+<B> Up:</B> <A NAME="tex2html324"
+  HREF="NewTitelblatt.html">NewTitelblatt</A>
+<B> Previous:</B> <A NAME="tex2html318"
+  HREF="node20.html">Host Enumeration</A>
+ &nbsp; <B>  <A NAME="tex2html326"
+  HREF="node1.html">Contents</A></B> 
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H1><A NAME="SECTION00050000000000000000">
+Conclusion</A>
+</H1>
+
+<P>
+The purpose of the research was to analyze the concept of the gadget framework on Android and to provide a practical approach for host-device communication via Gadgetfs module. The Gadgetfs allows to configure the USB interface from the user space. In particular it is possible to define VendorID and ProductID so that the host enumerates the smartphone as a card reader without any additional  software needed to be installed on the host. As a conclusion a smartphone can be used as a smartcard reader on operating systems like Linux or Windows.
+For that purpose the device descriptor, configuration descriptor, interface descriptor and the endpoint descriptors are to be configured. This allows the host to identify the device and to create endpoints which are logical elements for communication. 
+The way how to exchange the data with the help of device files on the host side was also mentioned. It can be done only after successful enumeration of the device.
+In order to do so, the device should be capable to switch between gadget and host modes using On-The-Go technology. The host mode allows plugging of various peripheral devices into smartphone. The gadget mode makes it possible to use the smartphone with card reader functionality. 
+
+<P>
+The research is based on Exynos 3 an ARM based System-on-Chip developed by Samsung.  The Google Nexus S is one model out of production line of Nexus devices with Android operating system.  To proceed with the task of configuring and debugging, the gadget framework was discussed which contains three layers: the user space program, gadget driver and USB device controller driver. Thus, the right configuration of USB device controller for Samsung Nexus S is necessary.
+
+<P>
+The research has to deal with ARM target architecture therefore the cross compiler environment was necessary to be able to compile Android kernel and user space program on the x86 host.
+To be able to use Gadgetfs on Samsung Nexus S the USB device controller driver for that platform needs to work properly. 
+The assumption at the beginning of this work was that the gadget driver was functioning and that  configuration in the user space has to be modified. This assumption was false. This research covered the problem of buggy driver and successful attempts which have been made to fix the bug. 
+The user space configuration of Gadgetfs on Samsung Nexus S with Exynos System-on-Chip led to a system crash.  The kernel panic was successfully debugged and patched. The endpoints on the device side were created. This issue led to next bug where the host could not enumerate the device because some packages were malformed. The cause could be that the device descriptor it transmitted incorrectly to host or the host parses the descriptors in the wrong way due to the change in  the USB specification. 
+The detailed analysis of this issue would exceed the scope of this work but can be investigated in a further research.
+
+<P>
+Moreover, the following gadget modules were introduced: gadget zero, serial gadget, network gadget and storage gadget. 
+
+<P>
+Another embedded system the BeagleBoard Black which is based on OMAP System-on-Chip was presented. The OMAP platform uses a different USB device controller driver so that Gadgetfs and also other gadget modules could be tested with positive results.
+
+<P>
+Thus, this research suspects the buggy implementation of UDC driver for Nexus S as a root cause of the malfunctioning. The possible solution is to use Galaxy Nexus as it uses OMAP SoC made by Texas Instruments.
+
+<P>
+Similar research and implementation was done by Frank Morgner with OpenMoko phone. The OpenMoko is based on Samsung S3C2410 System-on-Chip, the Nexus S uses S5PC110 System-on-Chip which is the subsequent model.
+
+<P>
+The research analyzed the USB gadget framework on Android, showed possible shortcomings of driver implementation and introduced the bug fixes in respect to the device configuration.
+
+<P>
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A NAME="tex2html327"
+  HREF="node22.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html323"
+  HREF="NewTitelblatt.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html317"
+  HREF="node20.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html325"
+  HREF="node1.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html328"
+  HREF="node22.html">Bibliography</A>
+<B> Up:</B> <A NAME="tex2html324"
+  HREF="NewTitelblatt.html">NewTitelblatt</A>
+<B> Previous:</B> <A NAME="tex2html318"
+  HREF="node20.html">Host Enumeration</A>
+ &nbsp; <B>  <A NAME="tex2html326"
+  HREF="node1.html">Contents</A></B> </DIV>
+<!--End of Navigation Panel-->
+<ADDRESS>
+root
+2014-06-12
+</ADDRESS>
+</BODY>
+</HTML>

@@ -1,0 +1,92 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<!--Converted with LaTeX2HTML 2008 (1.71)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>USB Gadget Zero</TITLE>
+<META NAME="description" CONTENT="USB Gadget Zero">
+<META NAME="keywords" CONTENT="NewTitelblatt">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2008">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="NewTitelblatt.css">
+
+<LINK REL="next" HREF="node9.html">
+<LINK REL="previous" HREF="node7.html">
+<LINK REL="up" HREF="node7.html">
+<LINK REL="next" HREF="node9.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A NAME="tex2html173"
+  HREF="node9.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html169"
+  HREF="node7.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html163"
+  HREF="node7.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html171"
+  HREF="node1.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html174"
+  HREF="node9.html">Serial USB Gadget</A>
+<B> Up:</B> <A NAME="tex2html170"
+  HREF="node7.html">Gadget Modules</A>
+<B> Previous:</B> <A NAME="tex2html164"
+  HREF="node7.html">Gadget Modules</A>
+ &nbsp; <B>  <A NAME="tex2html172"
+  HREF="node1.html">Contents</A></B> 
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H3><A NAME="SECTION00032100000000000000">
+USB Gadget Zero</A>
+</H3>
+With the help of this module the functions of the USB subsystem on both the client and host sides can be fully tested. Therefore, primarily the gadget driver g_zero is used with its counterpart the usbtest driver on the host side. The Linux machine is required as a host which contains the USB driver usbtest.ko. Once the system is connected to the host nothing happens at first yet. For as long as no unique USB function is determined by the gadget driver the USB device must be invisible to the host. This is achieved by switching off the pull up resistor. When a gadget driver, for example, g_zero is loaded then the pull up resistor is set by the UDC driver to 3.3V. So the host can start the enumeration. During the enumeration process first the device descriptor is picked up by the host. The host then performs a reset. Immediately after a reset the USB address is assigned to the device. Only now all descriptors are polled from the device. Among other things the device descriptor is transmitted one more time. The g_zero defines a device descriptor whose IDs make usbtest module to be loaded on the host side automatically. 
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A NAME="tex2html173"
+  HREF="node9.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html169"
+  HREF="node7.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html163"
+  HREF="node7.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html171"
+  HREF="node1.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html174"
+  HREF="node9.html">Serial USB Gadget</A>
+<B> Up:</B> <A NAME="tex2html170"
+  HREF="node7.html">Gadget Modules</A>
+<B> Previous:</B> <A NAME="tex2html164"
+  HREF="node7.html">Gadget Modules</A>
+ &nbsp; <B>  <A NAME="tex2html172"
+  HREF="node1.html">Contents</A></B> </DIV>
+<!--End of Navigation Panel-->
+<ADDRESS>
+root
+2014-06-12
+</ADDRESS>
+</BODY>
+</HTML>

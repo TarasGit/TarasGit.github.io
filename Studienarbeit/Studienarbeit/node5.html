@@ -1,0 +1,175 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<!--Converted with LaTeX2HTML 2008 (1.71)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>Topology</TITLE>
+<META NAME="description" CONTENT="Topology">
+<META NAME="keywords" CONTENT="NewTitelblatt">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2008">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="NewTitelblatt.css">
+
+<LINK REL="next" HREF="node6.html">
+<LINK REL="previous" HREF="node4.html">
+<LINK REL="up" HREF="node4.html">
+<LINK REL="next" HREF="node6.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A NAME="tex2html134"
+  HREF="node6.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html130"
+  HREF="node4.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html124"
+  HREF="node4.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html132"
+  HREF="node1.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html135"
+  HREF="node6.html">Host Functionality</A>
+<B> Up:</B> <A NAME="tex2html131"
+  HREF="node4.html">USB Overview</A>
+<B> Previous:</B> <A NAME="tex2html125"
+  HREF="node4.html">USB Overview</A>
+ &nbsp; <B>  <A NAME="tex2html133"
+  HREF="node1.html">Contents</A></B> 
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H3><A NAME="SECTION00031100000000000000">
+Topology</A>
+</H3>
+The discussion will proceed with the USB topology. This will bring more precisely understanding of information covered in the following chapters, in particular the endpoint configuration.
+The physical USB topology presents devices that are physically connected by a tiered star connection model. The hub acts as an attachment point which is called port. The host communicates with each physical device as if it was directly connected to a root hub. The host stays always aware of the physical topology to support connections and disconnections of devices.
+
+<P>
+The master-slave communication model defines the principle how USB technology works. The USB host plays a master role and is responsible for initiation of communication. Device responds to the requests from the host and plays a slave role. Host is capable to have up to 127 devices connected simultaneously.
+Each USB bus can have only one master which is called host controller.
+The host controller in association with a root hub is the low level piece of hardware that operates the USB master-slave bus protocol. 
+
+<P>
+
+<DIV ALIGN="CENTER"><A NAME="40"></A>
+<TABLE>
+<CAPTION ALIGN="BOTTOM"><STRONG>Figure:</STRONG>
+USB Physical Topology</CAPTION>
+<TR><TD>
+<DIV ALIGN="CENTER">
+
+</DIV><IMG
+  WIDTH="237" HEIGHT="277" ALIGN="BOTTOM" BORDER="0"
+ SRC="./simple_usb_topology.png"
+ ALT="Image simple_usb_topology">
+
+<P></TD></TR>
+</TABLE>
+</DIV>
+
+<P>
+As it is shown in Figure 1: USB Physical Topology, the root hub acts as an interface to the host controller. The host controller controls the devices on the bus in a polled manner. Only one device at a certain moment can exchange massages on the bus. 
+The other end of a USB network is the device end also called gadget. The gadget functionality within Linux kernel simply refers to an ability to operate as a device in the slave mode. 
+
+<P>
+On the other hand the logical topology describes how USB subsystems like host, hub and devices which make up the physical topology are interconnected to each other and communicate controlled by the host software.  
+The information about each USB device is described by a number of descriptors which are data structures with a defined format. Every device must have a single device descriptor because the host starts the enumeration process by polling it. 
+Device descriptor allows the host to differentiate what kind of device is plugged in at a moment.
+There also must be at least one configuration, but if there are many then the device can play different roles defined in each configuration. 
+ 
+When a device is plugged into the host, the host asks for information from the device and assigned an address that will be used for further communication. The unique address is assigned when device is attached and gets power. The enumeration process is performed automatically and indicates therefore that the operating system gets specific information from a newly connected hardware in form of descriptors. Descriptors are data blocks of few bytes. A special role in an enumeration process plays a device descriptor. Among many specifications of a device, it also contains three IDs which help to find an appropriate driver. 
+The host searches for an appropriate driver with assistance of information retrieved from the descriptor.  Each manufacturer has its own VendorID and ProductID. If a device belongs to a certain class then the device descriptor contains a special ClassID.  When a device cannot be assigned to a particular class then the driver will be found depending on VendorID and ProductID. If the host identifies the class then a proper class driver will be loaded, this functionality is usually adopted in operating system so that an extra driver installation is not needed. This  feature represents the Plug and Play mechanism for the new connected devices. Many drivers are already in the system and are found automatically, however, under certain circumstances it may happen that during the initial connection of a device, it would be required to install an appropriate driver  manually. The host driver with the host controller is responsible for configuring USB devices when they appear in the topology.
+Multiple configurations are sometimes packaged together in what looks like a single physical device. Such a device configuration it is called compound device. For example, an Android smartphone plugged into a host has a configuration as data storage and a configuration which enables the communication over Android Debugging Bridge. 
+
+<P>
+
+<DIV ALIGN="CENTER"><A NAME="44"></A>
+<TABLE>
+<CAPTION ALIGN="BOTTOM"><STRONG>Figure:</STRONG>
+USB Device Configuration</CAPTION>
+<TR><TD>
+<DIV ALIGN="CENTER">
+
+</DIV><IMG
+  WIDTH="237" HEIGHT="289" ALIGN="BOTTOM" BORDER="0"
+ SRC="./usb_logical_topology.png"
+ ALT="Image usb_logical_topology">
+
+<P></TD></TR>
+</TABLE>
+</DIV>
+
+<P>
+This section illustrates in textual form what can be seen on the Figure 2: USB Device Configuration.
+Every configuration defined in the device descriptor has a configuration descriptor. A configuration descriptor contains the number of interfaces available for each configuration. There must be at least one interface implemented. Each interface described by a configuration descriptor has an interface descriptor.
+An interface descriptor contains one field  specifying how many endpoints are defined. To make it more clear, an endpoint defines a unique location of a USB device and provides source or sink points for communication.  There is one endpoint which has always to be defined, it's called endpoint 0. 
+An endpoint is the logical element that software communicates with during USB device operation. Each endpoint specified by an interface descriptor contains an endpoint descriptor, endpoint 0 excluded. The endpoint descriptor declares parameters needed for communication such as endpoint address and also various attributes describing the features of data transfer for each endpoint.
+
+<P>
+The endpoint 0 has the address 0 and is a special endpoint that all devices must implement. The host uses it to initialize and gather information from the connected device. The endpoint 0 is not included in an interface descriptor. The information about interface class, subclass and protocol is also included in an interface descriptor.
+Except of endpoint 0 which is used to control the transfer, the USB gadget can have up to 31 endpoints,
+ 15  IN endpoints and 15 OUT endpoints. This will be an important issue in the next chapter where the practical implementation will be discussed.
+
+<P>
+The endpoints can be configured depending of the transfer type. There are different transfer types used by USB protocol. The USB specification, a document which describes all levels of the USB software stack, defines different  transfer data types. Depending on kind of communication it is possible to use the type which best meets the requirements. Below different transfer types are covered, this information is needed while configuring the endpoints of Gadgetfs module from the user space program.
+
+<P>
+<SPAN  CLASS="textbf">Control transfer</SPAN> is intended to support status commands and configuration between the host and device, so it is used for non-periodic communication. Each USB device has at least one control pipe which provides access to the status and control information. The control transfer is bidirectional and requests the configuration information to and from the device using the bidirectional endpoint 0. 
+The endpoint 0 is used always in control transfer mode.
+
+<P>
+<SPAN  CLASS="textbf">Isochronous transfer</SPAN> is used for a time dependent data transfer like video streams and telephony. This type of transfer allocates a portion of bandwidth to ensure that the data can be delivered to the receiver at a desired rate. The isochronous transfer is used by full speed and high speed devices, low speed devices are not included. The isochronous transfer is periodic and unidirectional. 
+
+<P>
+<SPAN  CLASS="textbf">Interrupt Transfer</SPAN> is used for devices to send and receive non-periodical, small data packages.  An example is a computer mouse, the data transfer rate is guaranteed but what cannot be guaranteed is that the transfer will occur a defined moment, but rather it will occur within the defined period of time. This transfer type will reattempt the transmission of data in the next period if there was an error on the bus.
+
+<P>
+<SPAN  CLASS="textbf">Bulk transfer</SPAN> is typically used transfer type for large, non-time-sensitive data. It takes up all the bandwidth that is available after the other transfers have finished so that if the bus is not available at the moment then the transfer may be delayed. The bulk transfer is unidirectional, it uses any available bandwidth and provides error check mechanism with retry of attempts.  
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A NAME="tex2html134"
+  HREF="node6.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html130"
+  HREF="node4.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html124"
+  HREF="node4.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html132"
+  HREF="node1.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html135"
+  HREF="node6.html">Host Functionality</A>
+<B> Up:</B> <A NAME="tex2html131"
+  HREF="node4.html">USB Overview</A>
+<B> Previous:</B> <A NAME="tex2html125"
+  HREF="node4.html">USB Overview</A>
+ &nbsp; <B>  <A NAME="tex2html133"
+  HREF="node1.html">Contents</A></B> </DIV>
+<!--End of Navigation Panel-->
+<ADDRESS>
+root
+2014-06-12
+</ADDRESS>
+</BODY>
+</HTML>

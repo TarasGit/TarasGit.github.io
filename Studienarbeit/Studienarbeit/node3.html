@@ -1,0 +1,146 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<!--Converted with LaTeX2HTML 2008 (1.71)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>Analysis of USB Host and Gadget on Android</TITLE>
+<META NAME="description" CONTENT="Analysis of USB Host and Gadget on Android">
+<META NAME="keywords" CONTENT="NewTitelblatt">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2008">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="NewTitelblatt.css">
+
+<LINK REL="next" HREF="node16.html">
+<LINK REL="previous" HREF="node2.html">
+<LINK REL="up" HREF="NewTitelblatt.html">
+<LINK REL="next" HREF="node4.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A NAME="tex2html96"
+  HREF="node4.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html92"
+  HREF="NewTitelblatt.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html86"
+  HREF="node2.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html94"
+  HREF="node1.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html97"
+  HREF="node4.html">USB Overview</A>
+<B> Up:</B> <A NAME="tex2html93"
+  HREF="NewTitelblatt.html">NewTitelblatt</A>
+<B> Previous:</B> <A NAME="tex2html87"
+  HREF="node2.html">Introduction</A>
+ &nbsp; <B>  <A NAME="tex2html95"
+  HREF="node1.html">Contents</A></B> 
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H1><A NAME="SECTION00030000000000000000">
+Analysis of USB Host and Gadget on Android</A>
+</H1>
+The chapter will provide information about USB system architecture which is divided into USB host and USB gadget. The important characteristics of the architecture will be systematized  and analyzed continuously covering the topics needed to proceed in this work.
+
+<P>
+The starting point will be an overview of the USB technology. The physical and logical characteristics of this technology will be discussed in details.
+Besides, the possibility of a device to play a host or gadget role, the so called On-The-Go technology will be introduced. 
+This technology is needed because on the one hand the smartphone device should bring card reader interface and on the other hand it should possess minimalistic host capabilities so that it can be extended to plug in some other peripheral devices like keyboards or mass storage devices.
+The different transfer types of data will be presented to cover the needs to transport big or small amount of data depending also on timing requirements. As mentioned above, the goal is to provide the communication possibilities between the host and the gadget so that exchange of information becomes possible between them.  To sum it up, the gadget framework will be introduced. 
+
+<P>
+In contrast to the host part the different modules with special features will be described. An introduction of the use cases for appliance of modules will provide intuitive understanding of the features of gadget framework. Furthermore, this research will provide information about Gadgetfs, a module which brings the configuration of the communication from kernel space into user space. Therefore, the Gadgetfs was chosen as a module to implement the communication with Android smartphone. The Gadgetfs module will be discussed further in a separate chapter.
+
+<P>
+As a gadget part in the communication model, the phone with Android embedded operating system was selected. Therefore, the embedded Android will be the further subject of the discussion. Android operating system brings a different way of initialization of hardware during the boot process. 
+
+<P>
+The hardware plays crucial role because of the device drivers which each developer of embedded devices provides for its own hardware. This brings the discussion to the last point in this chapter where the concept and physical characteristics of System-on-Chip will be discussed and presented.
+The embedded device selected for the programming and testing purposes is Samsung Nexus S. 
+
+<P>
+<BR><HR>
+<!--Table of Child-Links-->
+<A NAME="CHILD_LINKS"><STRONG>Subsections</STRONG></A>
+
+<UL CLASS="ChildLinks">
+<LI><A NAME="tex2html98"
+  HREF="node4.html">USB Overview</A>
+<UL>
+<LI><A NAME="tex2html99"
+  HREF="node5.html">Topology</A>
+<LI><A NAME="tex2html100"
+  HREF="node6.html">Host Functionality</A>
+</UL>
+<BR>
+<LI><A NAME="tex2html101"
+  HREF="node7.html">Gadget Modules</A>
+<UL>
+<LI><A NAME="tex2html102"
+  HREF="node8.html">USB Gadget Zero</A>
+<LI><A NAME="tex2html103"
+  HREF="node9.html">Serial USB Gadget</A>
+<LI><A NAME="tex2html104"
+  HREF="node10.html">USB Network Gadget</A>
+<LI><A NAME="tex2html105"
+  HREF="node11.html">Storage USB Gadget</A>
+<LI><A NAME="tex2html106"
+  HREF="node12.html">Gadgetfs</A>
+</UL>
+<BR>
+<LI><A NAME="tex2html107"
+  HREF="node13.html">Embedded Android</A>
+<UL>
+<LI><A NAME="tex2html108"
+  HREF="node14.html">System on Chip</A>
+<LI><A NAME="tex2html109"
+  HREF="node15.html">Samsung Nexus S</A>
+</UL></UL>
+<!--End of Table of Child-Links-->
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A NAME="tex2html96"
+  HREF="node4.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html92"
+  HREF="NewTitelblatt.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html86"
+  HREF="node2.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html94"
+  HREF="node1.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html97"
+  HREF="node4.html">USB Overview</A>
+<B> Up:</B> <A NAME="tex2html93"
+  HREF="NewTitelblatt.html">NewTitelblatt</A>
+<B> Previous:</B> <A NAME="tex2html87"
+  HREF="node2.html">Introduction</A>
+ &nbsp; <B>  <A NAME="tex2html95"
+  HREF="node1.html">Contents</A></B> </DIV>
+<!--End of Navigation Panel-->
+<ADDRESS>
+root
+2014-06-12
+</ADDRESS>
+</BODY>
+</HTML>

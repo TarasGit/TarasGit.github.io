@@ -1,0 +1,186 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<!--Converted with LaTeX2HTML 2008 (1.71)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>Gadgetfs Debugging </TITLE>
+<META NAME="description" CONTENT="Gadgetfs Debugging ">
+<META NAME="keywords" CONTENT="NewTitelblatt">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2008">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="NewTitelblatt.css">
+
+<LINK REL="next" HREF="node20.html">
+<LINK REL="previous" HREF="node18.html">
+<LINK REL="up" HREF="node16.html">
+<LINK REL="next" HREF="node20.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A NAME="tex2html305"
+  HREF="node20.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html301"
+  HREF="node16.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html295"
+  HREF="node18.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html303"
+  HREF="node1.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html306"
+  HREF="node20.html">Host Enumeration</A>
+<B> Up:</B> <A NAME="tex2html302"
+  HREF="node16.html">Practical Approach</A>
+<B> Previous:</B> <A NAME="tex2html296"
+  HREF="node18.html">Cross Compilation for ARM</A>
+ &nbsp; <B>  <A NAME="tex2html304"
+  HREF="node1.html">Contents</A></B> 
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H2><A NAME="SECTION00043000000000000000">
+Gadgetfs Debugging </A>
+</H2>
+The execution of user space program on Nexus S in connection with Gadgetfs resulted in a system crash so that smartphone rebooted. Further explanation will describe the steps which led to a bug fix.
+
+<P>
+The UDC driver for Exynos SoC defines endpoints which differ in direction and transfer mode. The endpoints which are defined and configured in user space have to correlate with those endpoints. If the certain endpoint in UDC driver is defined as an IN endpoint with bulk transfer mode then this endpoint cannot be redefined in user space as an OUT endpoint or an endpoint with different transfer mode such as interrupt or isochronous.
+The various configuration of endpoints in user space were tried out but without any success to prevent the system crash.
+The usual way to configure Gadgetfs module is to mount Gadgetfs in /dev/gadget and then to execute the user space program which configures the USB interface. As it is shown in the listing below, after mounting the Gadgetfs in kernel log files, the message appears: "s3c-udc: bind to driver nop -&gt; error -120". After the execution of user space program the Android phone got kernel panic and rebooted. The first idea was that the preceding error message is the cause of the trouble because as the massage says the USB device controller driver could not be bound to device controller. 
+
+<P>
+<PRE>
+mkdir /dev/gadget
+insmod gadgetfs.ko
+mount -t gadgetfs gadgetfs /dev/gadget
+ls /dev/gadget
+s3c-udc
+dmesg
+[299.539226] Gadgetfs: USB Gadget filesystem, version 24 Aug 2004
+[353.895836] s3c-udc: bind to driver nop -&gt; error -120
+</PRE>
+After debugging it became clear that the driver was developed in such a way that it started binding process only after execution of user space program. The error message -120 is just a reminding that the Gadgetfs needs the execution of the user space program to start the binding process. That was obviously not the root of the problem with kernel crash and the rebooting was still unsolved.
+
+<P>
+To be able to work with gadget modules the device needs to be configured in the device mode. The configured kernel used OTG functionality. It was important to be able to switch between the host and the device functionality on Android.
+By configuring the kernel with support for OTG functionality it was possible to switch the modes.
+When OTG functionality is configured on Samsung Nexus S then the directory 
+<BR>
+
+<BR>
+should contain the following entry: dwc_otg.
+The dwc_otg is a sign that OTG support on the Android is enabled. To change modes it is necessary to use root privileges. The description of configuration of host, gadget and OTG modes on Nexus S device are listed below.
+<BR>
+<BR><SPAN  CLASS="textbf">Host mode:</SPAN>
+<BR>
+
+<BR>
+<SPAN  CLASS="textbf">Device mode:</SPAN>
+<BR>
+
+<BR>
+<SPAN  CLASS="textbf">OTG mode:</SPAN>
+<BR>
+
+<BR>
+
+<P>
+The modification is also possible by installation of a Google Market Application which controls the different modes.
+
+<P>
+Due to the fact that the device with Gadgetfs module loaded has no additional interfaces to debug it remotely, so it requires to work with the terminal directly on Samsung Nexus S touchscreen. It was soon clear  that the set of commands offered by the ToolBox is insufficient. The decision was made to cross compile BusyBox for ARM architecture to supplement the command set and to use it instead of ToolBox.
+
+<P>
+As already mentioned, the consequence of user space program execution was the restart of the smartphone with a kernel panic error message. The analysis of the kernel dump was the starting point in the necessity of debugging the kernel panic on embedded device. Additional obstacle in the debugging was the issue that by loading the Gadgetfs module it was not more possible to use ADB or serial connection to be able to access the smartphone. The way to examine the kernel log messages was the option to do it only on the smartphone display or to reload the phone without Gadgetfs module to be able to copy the debug files to the host computer over ADB interface.
+
+<P>
+The decision was made first to try out another Android kernel version because of the bug fixes which are included in the newer versions. 
+The following kernel versions were tested on a stock ROM which is a firmware for Android and on a custom CyanogenMod ROM: 
+
+<UL>
+<LI>Android Gingerbread 2.3 with the kernel version 2.6 was tested. 
+</LI>
+<LI>Android Ice Cream Sandwich 4.0 with kernel version 3.0 was tested. 
+</LI>
+<LI>Android Jelly Bean 4.2.2 with kernel version 3.0.50 was tested. 
+</LI>
+</UL>
+Unfortunately the usage of another kernel version did not brought better results because the device controller driver for Exynos SoC did not changed from version to version and was not affected by a bug fix.
+The Exynos SoC can be considered as already pretty old. It is over five years on the market so that the bug fixes on the linux-usb mailing list concern more recent systems. 
+
+<P>
+To be able to proceed with this research it was necessary to find the cause of the buggy behavior.
+The most useful technique to debug the kernel on an embedded device turned out to use printk() commands. This command allows to log the kernel function messages with parameters to a log file. The log file can be analyzed after the kernel crash with the aim of finding the last called function. As described in previous chapters the gadget framework consists of 3 layers. The starting point for debugging was the user space program usb.c. It could be simply modified by debug information and executed on embedded device. The program uses the API of Gadgetfs and it turned out that the function which caused the the bug was placed in the lower level.  It was necessary to include debug information to the inode.c file which represents the Gadgetfs module. As already discussed the Gadgetfs uses the API from USB device controller driver so that it was also necessary to add the debug information the device controller driver which is represented by the file s3c_udc_otg.c. To be able to analyze the kernel modules and its interdependence, it was necessary to become acquainted with data structures used by gadget framework in special in the gadget and in the UDC driver. At the end, it was possible to allocate the function. But in order to proceed further, it is worth to remember that the S5PC110 chip which is used in Nexus S is a subsequent model after S3C2410 chip. The device controller driver which is used for S5PC110 is s3c_udc_otg and has to be compatible with it. So it happened that that the number of declared endpoints in header file and the number of initialized endpoints in USB device controller driver was different. The consequence was that some endpoints were not initialized. An attempt to dereference the uninitialized pointer led to kernel panic. The patch of the misbehavior was to reduce the number of available endpoints in the header file from 15 to 14 or to add the non-present endpoint 15 into the device controller driver.
+
+<P>
+Here comes the kernel patch for USB device controller driver s3c_udc_otg.c. It brings the initialization of endpoint 15 which has to be defined.
+
+<P>
+<PRE>
+1201,1216d1179
+&lt; 	.ep[15] = { 
+&lt; 		  .ep = {
+&lt; 			 .name = "ep15-bulk",
+&lt; 			 .ops = &amp;s3c_ep_ops,
+&lt; 			 .maxpacket = EP_FIFO_SIZE,
+&lt; 			 },
+&lt; 		  .dev = &amp;memory,
+&lt; 
+&lt; 		  .bEndpointAddress = USB_DIR_OUT | 0xf,
+&lt; 		  .bmAttributes = USB_ENDPOINT_XFER_BULK,
+&lt; 
+&lt; 		  .ep_type = ep_bulk_out,
+&lt; 		  .fifo = (unsigned int) S3C_UDC_OTG_EP15_FIFO,  
+&lt; 		  }
+</PRE>
+
+<P>
+The user space program uses only the first three endpoints to exchange data. The endpoint 15 is never used by the user space program. The endpoint 15 defines a bulk endpoint with the OUT direction from the host's point of view. After applying the patch it was possible to execute the user space program. The user space program created 15 endpoints excluded endpoint 0 in /dev/gadget directory without causing the kernel panic. The following step was to plug the device into the host so that the host can start enumeration process. The result was another bug. This bug disrupts the enumeration so that the device is not recognized by the host.
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A NAME="tex2html305"
+  HREF="node20.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html301"
+  HREF="node16.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html295"
+  HREF="node18.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html303"
+  HREF="node1.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html306"
+  HREF="node20.html">Host Enumeration</A>
+<B> Up:</B> <A NAME="tex2html302"
+  HREF="node16.html">Practical Approach</A>
+<B> Previous:</B> <A NAME="tex2html296"
+  HREF="node18.html">Cross Compilation for ARM</A>
+ &nbsp; <B>  <A NAME="tex2html304"
+  HREF="node1.html">Contents</A></B> </DIV>
+<!--End of Navigation Panel-->
+<ADDRESS>
+root
+2014-06-12
+</ADDRESS>
+</BODY>
+</HTML>

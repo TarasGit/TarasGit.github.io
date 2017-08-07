@@ -1,0 +1,70 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<!--Converted with LaTeX2HTML 2008 (1.71)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>Storage USB Gadget</TITLE>
+<META NAME="description" CONTENT="Storage USB Gadget">
+<META NAME="keywords" CONTENT="NewTitelblatt">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2008">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="NewTitelblatt.css">
+
+<LINK REL="next" HREF="node12.html">
+<LINK REL="previous" HREF="node10.html">
+<LINK REL="up" HREF="node7.html">
+<LINK REL="next" HREF="node12.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A NAME="tex2html209"
+  HREF="node12.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html205"
+  HREF="node7.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html199"
+  HREF="node10.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html207"
+  HREF="node1.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html210"
+  HREF="node12.html">Gadgetfs</A>
+<B> Up:</B> <A NAME="tex2html206"
+  HREF="node7.html">Gadget Modules</A>
+<B> Previous:</B> <A NAME="tex2html200"
+  HREF="node10.html">USB Network Gadget</A>
+ &nbsp; <B>  <A NAME="tex2html208"
+  HREF="node1.html">Contents</A></B> 
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H3><A NAME="SECTION00032400000000000000">
+Storage USB Gadget</A>
+</H3> 
+The storage gadget module g_file_storage uses a file to store the information. 
+The mass storage class is generally not designed for multiple and simultaneous accesses. It has no coherence protocol to inform the communication partners about the changed files. The USB host can therefore have a very different picture of the contents of the memory on the client. It should be avoided to access the data from the host and the client simultaneously. The host mass storage driver can be found on both Windows and Linux via the provided ClassID. An extra driver installation on the host is just not necessary as it is usual with a USB flash drive. Once the enumeration is complete, the host usually binds the content in its directory hierarchy, on Windows it appears as an additional drive and on Linux as a directory in /media directory.
+Now, any data can be added or deleted.
+
+<P>
+<BR><HR>
+<ADDRESS>
+root
+2014-06-12
+</ADDRESS>
+</BODY>
+</HTML>

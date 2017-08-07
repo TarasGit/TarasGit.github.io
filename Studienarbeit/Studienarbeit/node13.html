@@ -1,0 +1,115 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<!--Converted with LaTeX2HTML 2008 (1.71)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>Embedded Android</TITLE>
+<META NAME="description" CONTENT="Embedded Android">
+<META NAME="keywords" CONTENT="NewTitelblatt">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2008">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="NewTitelblatt.css">
+
+<LINK REL="previous" HREF="node7.html">
+<LINK REL="up" HREF="node3.html">
+<LINK REL="next" HREF="node14.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A NAME="tex2html229"
+  HREF="node14.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html225"
+  HREF="node3.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html221"
+  HREF="node12.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html227"
+  HREF="node1.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html230"
+  HREF="node14.html">System on Chip</A>
+<B> Up:</B> <A NAME="tex2html226"
+  HREF="node3.html">Analysis of USB Host</A>
+<B> Previous:</B> <A NAME="tex2html222"
+  HREF="node12.html">Gadgetfs</A>
+ &nbsp; <B>  <A NAME="tex2html228"
+  HREF="node1.html">Contents</A></B> 
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H2><A NAME="SECTION00033000000000000000">
+Embedded Android</A>
+</H2>
+The chosen platform for this work is Samsung smartphone with Android operating system. Android presents a operating system for mobile devices based on Linux. Given OS was developed by Android Inc. which was bought by Google afterwards. Although this OS is based on Linux, it is not possible to use all  Linux applications because of the absence of various standard libraries and also because some libraries were developed entirely by Google. 
+
+<P>
+In 2013 estimated Android platform market share claimed nearly 79 percent.
+Today it can be seen that Android has quickly reached the top of the smarphone selling, but there are signs that the growth is cooling off. In embedded world it became a de facto standard for a vast majority of embedded devices. There are signs that it might displace the classic embedded Linux. An entire ecosystem therefore rapidly grows around Android. System-on-Chip (SoC)  manufacturers such as Qualcomm, Freescale, Nvidia and ARM have added Android support for their products. On the other hand, phone and tablet manufacturers such as Samsung, HTC, Sony, LG are constantly increasing number of Android devices. Many of those projects are done by forking the official Android source code release with the purpose to create an own Android distribution with custom features. CyanogenMod and Linaro are typical examples of Android projects enhancements which provide own Android custom images.
+
+<P>
+Android was made in fact to run on all architectures supported by Linux like ARM, MIPS, PowerPC and x86 that means on any hardware that runs Linux. But beyond being able to run Linux, there are few other hardware requirements for running Android. Apart from the logical requirements of having some kind of interaction mechanism to allow users to use the input interface and some kind of display, there are also needs to provide enough memory to store Android image file and a sufficiently powerful CPU to give the user a decent experience with the device.
+By implementing the Gadgetfs module on the phone there has to be a possibility to bring back the standard configuration and to allow the user to make use of the predefined settings.
+
+<P>
+Hardware support in Android is significantly different from the approach found in Linux kernel. The usual way in Linux to provide support for new hardware is to create a device driver. The driver can be built as a module and be loaded at a runtime or as an built-in kernel module so that the corresponding hardware is generally accessible in the user space through files in /dev. In Linux there are three types of devices: character devices also known as stream devices, block devices and the network devices. This allows various software stacks to be built on top of files in /dev to interact with the hardware.
+Android approach is very different. Android software stack relies on shared libraries provided by manufacturers to interact with hardware, instead of standard /dev entries. Android uses on what is called a Hardware Abstraction Layer. Generally speaking, a Hardware Abstraction Layer can be considered as the hardware library loader along  with the header files defining the various hardware types. Android does not specify how the shared library and the driver should interact. The Hardware Abstraction Layer defines only the API provided by the shared library to the upper layers. Android has no libc library it uses reduced version named bionic.
+The USB controller driver acts as a hardware abstraction layer for the USB device controller. It exports the hardware to the layers above. The Linux USB controller driver implements hardware specific routines that allows access to the memory space and registers.
+
+<P>
+<BR><HR>
+<!--Table of Child-Links-->
+<A NAME="CHILD_LINKS"><STRONG>Subsections</STRONG></A>
+
+<UL CLASS="ChildLinks">
+<LI><A NAME="tex2html231"
+  HREF="node14.html">System on Chip</A>
+<LI><A NAME="tex2html232"
+  HREF="node15.html">Samsung Nexus S</A>
+</UL>
+<!--End of Table of Child-Links-->
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A NAME="tex2html229"
+  HREF="node14.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html225"
+  HREF="node3.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html221"
+  HREF="node12.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html227"
+  HREF="node1.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html230"
+  HREF="node14.html">System on Chip</A>
+<B> Up:</B> <A NAME="tex2html226"
+  HREF="node3.html">Analysis of USB Host</A>
+<B> Previous:</B> <A NAME="tex2html222"
+  HREF="node12.html">Gadgetfs</A>
+ &nbsp; <B>  <A NAME="tex2html228"
+  HREF="node1.html">Contents</A></B> </DIV>
+<!--End of Navigation Panel-->
+<ADDRESS>
+root
+2014-06-12
+</ADDRESS>
+</BODY>
+</HTML>

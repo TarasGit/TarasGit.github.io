@@ -1,0 +1,157 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<!--Converted with LaTeX2HTML 2008 (1.71)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>Gadgetfs</TITLE>
+<META NAME="description" CONTENT="Gadgetfs">
+<META NAME="keywords" CONTENT="NewTitelblatt">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2008">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="NewTitelblatt.css">
+
+<LINK REL="previous" HREF="node11.html">
+<LINK REL="up" HREF="node7.html">
+<LINK REL="next" HREF="node13.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A NAME="tex2html219"
+  HREF="node13.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html215"
+  HREF="node7.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html211"
+  HREF="node11.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html217"
+  HREF="node1.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html220"
+  HREF="node13.html">Embedded Android</A>
+<B> Up:</B> <A NAME="tex2html216"
+  HREF="node7.html">Gadget Modules</A>
+<B> Previous:</B> <A NAME="tex2html212"
+  HREF="node11.html">Storage USB Gadget</A>
+ &nbsp; <B>  <A NAME="tex2html218"
+  HREF="node1.html">Contents</A></B> 
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H3><A NAME="SECTION00032500000000000000">
+Gadgetfs</A>
+</H3>
+The gadget driver framework extends the control over the virtual file system into the user space. It becomes possible to access the gadget from it. The Gadgetfs is not available by default and must be configured during the kernel configuration.  
+
+<P>
+
+<DIV ALIGN="CENTER"><A NAME="80"></A>
+<TABLE>
+<CAPTION ALIGN="BOTTOM"><STRONG>Figure:</STRONG>
+Gadgetfs read/write</CAPTION>
+<TR><TD>
+<DIV ALIGN="CENTER">
+
+</DIV>
+<P>
+<IMG
+  WIDTH="355" HEIGHT="211" ALIGN="BOTTOM" BORDER="0"
+ SRC="./gadgetfs_read_write.png"
+ ALT="Image gadgetfs_read_write"></TD></TR>
+</TABLE>
+</DIV>
+
+<P>
+The Figure 3: Gadgetfs read/write, shows schematically the ability of the program to use bulk sink-source functionality by reading the data from the endpoint 1(ep1) and by writing the data to the host using endpoint 2(ep2).
+The ep* files are created for each endpoint during the driver binding. If an endpoint is configured with an OUT transfer direction, so it possible only to read it. If an endpoint is configured with an IN transfer direction, so it is possible only to write into it.
+
+<P>
+The s3c-udc file serves to access the endpoint 0 where the device configurations are written. This enables the the binding of module with USB controller. 
+In particular, by writing the descriptors on Samsung Nexus S in the file /dev/gadget/s3c-udc the device gets configured. 
+The device stays active and ready for enumeration until file descriptor is closed. It is possible to obtain the events by polling endpoint 0, see the Table 3, Gadgetfs Events.
+The Gadgetfs provide a file system based access to the device controller driver which in its turn controls the device controller hardware.
+
+<P>
+<BR><P></P>
+<DIV ALIGN="CENTER"><A NAME="88"></A>
+<TABLE>
+<CAPTION><STRONG>Table:</STRONG>
+Gadgetfs Events</CAPTION>
+<TR><TD>
+<DIV ALIGN="CENTER">
+
+</DIV><TABLE CELLPADDING=3>
+<TR><TD ALIGN="LEFT"><SPAN  CLASS="textbf">Event</SPAN></TD>
+<TH ALIGN="LEFT" VALIGN="TOP" WIDTH=198><SPAN  CLASS="textbf">Description</SPAN></TH>
+</TR>
+<TR><TD ALIGN="LEFT">GADGETFS_CONNECT</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=198>The event is generated when the device setup is successful.</TD>
+</TR>
+<TR><TD ALIGN="LEFT">GADGETFS_DISCONNECT</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=198>The event indicates disconnection of the device from the gadget driver.</TD>
+</TR>
+<TR><TD ALIGN="LEFT">GADGETFS_SETUP</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=198>The event is generated when the gadget driver requests a device setup.</TD>
+</TR>
+<TR><TD ALIGN="LEFT">GADGETFS_SUSPEND</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=198>The event is generated when the gadget driver requests a device suspend.</TD>
+</TR>
+<TR><TD ALIGN="LEFT">&nbsp;</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=198>&nbsp;</TD>
+</TR>
+</TABLE>
+</TD></TR>
+</TABLE>
+</DIV><P></P>
+<BR>
+
+<P>
+The Table  3: Gadgetfs Events, shows the events  which the user space program polls to obtain the driver status.
+These events are used in the user space program to check the current state and enable the right control flow of Gadgetfs. It becomes possible to handle different situation like errors or unexpected states. They are very useful by debugging Gadgetfs, it became possible to see in the log files the states of the Gadgetfs module.
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A NAME="tex2html219"
+  HREF="node13.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html215"
+  HREF="node7.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html211"
+  HREF="node11.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html217"
+  HREF="node1.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html220"
+  HREF="node13.html">Embedded Android</A>
+<B> Up:</B> <A NAME="tex2html216"
+  HREF="node7.html">Gadget Modules</A>
+<B> Previous:</B> <A NAME="tex2html212"
+  HREF="node11.html">Storage USB Gadget</A>
+ &nbsp; <B>  <A NAME="tex2html218"
+  HREF="node1.html">Contents</A></B> </DIV>
+<!--End of Navigation Panel-->
+<ADDRESS>
+root
+2014-06-12
+</ADDRESS>
+</BODY>
+</HTML>

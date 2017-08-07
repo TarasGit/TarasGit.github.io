@@ -1,0 +1,103 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<!--Converted with LaTeX2HTML 2008 (1.71)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>Cross Compilation for ARM</TITLE>
+<META NAME="description" CONTENT="Cross Compilation for ARM">
+<META NAME="keywords" CONTENT="NewTitelblatt">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2008">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="NewTitelblatt.css">
+
+<LINK REL="next" HREF="node19.html">
+<LINK REL="previous" HREF="node17.html">
+<LINK REL="up" HREF="node16.html">
+<LINK REL="next" HREF="node19.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A NAME="tex2html293"
+  HREF="node19.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html289"
+  HREF="node16.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html283"
+  HREF="node17.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html291"
+  HREF="node1.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html294"
+  HREF="node19.html">Gadgetfs Debugging</A>
+<B> Up:</B> <A NAME="tex2html290"
+  HREF="node16.html">Practical Approach</A>
+<B> Previous:</B> <A NAME="tex2html284"
+  HREF="node17.html">Gadgetfs Usage</A>
+ &nbsp; <B>  <A NAME="tex2html292"
+  HREF="node1.html">Contents</A></B> 
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H2><A NAME="SECTION00042000000000000000">
+Cross Compilation for ARM</A>
+</H2>
+After the configuration of the user space program has been accomplished, the next step was to test the functionality on the Samsung Nexus S smartphone. It was needed to set up the cross compiler environment to be able to compile on host x86 architecture for an ARM architecture. There is still a possibility to compile its own cross compiler, but a precompiled one was sufficient for the purpose of this work.
+It was necessary to cross compile the Android kernel and the also user space program for ARM architecture. 
+This part of the work was already handled during the IT Security Workshop 2012. The unsolved problem in the workshop was that it was not possible to compile the user space program for an ARM architecture because of non-present header files. The right solution was to use a different cross compiler for ARM architecture and static or dynamic linking. Noteworthy issue was the option to link program dynamically against Android system libraries by setting the right paths. Another option was to use static flag during the compilation process. The static option links the program statically so that it does not require dependencies on dynamic libraries at runtime in order to run. 
+
+<P>
+After a successful cross compilation of the user space program and the kernel it was necessary to flash the kernel image to the smartphone to be able to test it. The important issue is to use the right version of kernel and ROM which is  a firmware for Android. They need to match because otherwise the smartphone just decline to boot properly. When the ROM is flashed to incompatible device type the smartphone gets bricked. It is possible to recover the bricked smartphone to its original stated by doing factory reset using ClockworkMode recovery image or by reflashing the stock or custom ROM.
+
+<P>
+As already discussed it is advisable to start the usage of the gadget framework by testing it with g_zero module. This module supports only basic functionality so that the standard test cases can be automatically tested. When device is configured with g_zero module the host enumerates the gadget and it is possible to read and write to it. The module g_zero writes back automatically every data which host wrote to the device. The tests with this module on Nexus S phone ended successfully.
+
+<P>
+It was also possible to load and positively test the following kernel modules on Nexus S: serial gadget, network gadget and mass storage gadget. 
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A NAME="tex2html293"
+  HREF="node19.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html289"
+  HREF="node16.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html283"
+  HREF="node17.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html291"
+  HREF="node1.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html294"
+  HREF="node19.html">Gadgetfs Debugging</A>
+<B> Up:</B> <A NAME="tex2html290"
+  HREF="node16.html">Practical Approach</A>
+<B> Previous:</B> <A NAME="tex2html284"
+  HREF="node17.html">Gadgetfs Usage</A>
+ &nbsp; <B>  <A NAME="tex2html292"
+  HREF="node1.html">Contents</A></B> </DIV>
+<!--End of Navigation Panel-->
+<ADDRESS>
+root
+2014-06-12
+</ADDRESS>
+</BODY>
+</HTML>

@@ -1,0 +1,114 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<!--Converted with LaTeX2HTML 2008 (1.71)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>Gadgetfs Usage</TITLE>
+<META NAME="description" CONTENT="Gadgetfs Usage">
+<META NAME="keywords" CONTENT="NewTitelblatt">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2008">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="NewTitelblatt.css">
+
+<LINK REL="next" HREF="node18.html">
+<LINK REL="previous" HREF="node16.html">
+<LINK REL="up" HREF="node16.html">
+<LINK REL="next" HREF="node18.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A NAME="tex2html281"
+  HREF="node18.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html277"
+  HREF="node16.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html271"
+  HREF="node16.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html279"
+  HREF="node1.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html282"
+  HREF="node18.html">Cross Compilation for ARM</A>
+<B> Up:</B> <A NAME="tex2html278"
+  HREF="node16.html">Practical Approach</A>
+<B> Previous:</B> <A NAME="tex2html272"
+  HREF="node16.html">Practical Approach</A>
+ &nbsp; <B>  <A NAME="tex2html280"
+  HREF="node1.html">Contents</A></B> 
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H2><A NAME="SECTION00041000000000000000">
+Gadgetfs Usage</A>
+</H2>
+The right point to start to unfold the accomplished work is the usb.c program which is the official user space test program for Gadgetfs module. This program decides dynamically which device controller is present on current hardware. Depending on this information it configures the device by writing the correct configuration descriptors and device descriptor to the endpoint 0. When the endpoints for IN and OUT transfer are configured then the two threads are provided to read and write the data to or from the endpoints. One extra thread controls the endpoint 0. Some gadget framework structures became initialized in the user space and therefore allow a dynamic configuration. It requires the cross compilation of the user space program and its execution on the device. In contrast to the preceding methods, a modification of the kernel module would bring the disadvantage of the kind that it would need to be  recompiled against the kernel source tree. The possible bugs in kernel module could bring the system to a crash.
+
+<P>
+The first step was to change the user space program and to test its functionality. Following options were in assortment. The fist one, to set up the dummy_hcd module which simulates the USB gadget functionality on Linux. The second approach was to get it working on the Android emulator. The last alternative was to work directly with the Nexus S hardware. It is obvious that the first two alternatives were favored because of the possibility to work directly on the host computer.
+
+<P>
+The dummy_hcd allowed to test module on already approved to work system like Linux to be able to understand the functionality and to test the configuration and communication.  The module dummy_hcd exposes a device side of USB gadget API and simulates requests to a Linux host controller driver. Thus, it allows testing of the gadget modules directly on the host by loading the dummy_hcd and the gadget driver. To provide the gadget modules along with dummy_hcd module on Linux, it was necessary to recompile Linux kernel and to enable them during the kernel configuration. This was successfully managed therefore it was possible to load Gadgetfs module and simulate the communication via dummy_hcd. The data could be exchanged by writing into the endpoints on one side and by reading the data on the other side. To be able to access the USB interface on the host side the approach was chosen with the usage of usb-skeleton host module. This module is a part of the kernel source tree so that by modifying this module a device file on the host side could be created. The device file allowed reading and writing into it to exchange the data. It was possible to test successfully all gadget modules described in Chapter 2.2. 
+
+<P>
+This approach turned out to be successful and next step was to test it on Android. 
+In order not to forget the main goal to enable communication between the host and Android, the second step was to try it out on the Android Emulator which is provided with Android SDK. The special kernel for an emulator with the codename "goldfish" was compiled with enabled gadget drivers support. The procedure of testing gadget modules on emulator was proved to fail because Android emulator is build on the basis of out-dated version of Qemu emulator and has no support for USB device controller. Accordingly, it was not possible to test gadget module on host via an Android emulator. This brought this research to the necessity to start to work with the real hardware based on Exynos SoC, see Chapter 2.3.3.
+
+<P>
+At that time the research had to deal with real hardware. The following changes were done to the user space program to make it run with an Exynos SoC. The code is part of the program where the initial configuration of gadget is specified. There are data structures to be set to configure the device. One of the fields is device name which depends on UDC driver. The s3c_udc_otg.c is the source code file for the USB device driver for Nexus S. Correspondingly, the created device file in directory /dev/gadget has a name s3c-udc. Depending on device controller there are various aspects to set up. It has to be known in advance whether the device controller supports the high speed and what are the data transfer types of the endpoints. The configurations of endpoints which are defined in user space have to be equal to predefined endpoints in UDC driver.
+
+<P>
+
+<P>
+The changes which are needed in usb.c user space program to work on Exynos SoC are shown below:
+<BR>
+
+<BR>
+The listing shows that Exynos SoC needs high speed to be activated. In addition three endpoints are created. Two of them the bulk endpoints for IN and OUT communication and the third is the control endpoint.
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A NAME="tex2html281"
+  HREF="node18.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html277"
+  HREF="node16.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html271"
+  HREF="node16.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html279"
+  HREF="node1.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html282"
+  HREF="node18.html">Cross Compilation for ARM</A>
+<B> Up:</B> <A NAME="tex2html278"
+  HREF="node16.html">Practical Approach</A>
+<B> Previous:</B> <A NAME="tex2html272"
+  HREF="node16.html">Practical Approach</A>
+ &nbsp; <B>  <A NAME="tex2html280"
+  HREF="node1.html">Contents</A></B> </DIV>
+<!--End of Navigation Panel-->
+<ADDRESS>
+root
+2014-06-12
+</ADDRESS>
+</BODY>
+</HTML>

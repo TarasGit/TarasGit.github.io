@@ -1,0 +1,114 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<!--Converted with LaTeX2HTML 2008 (1.71)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>Practical Approach</TITLE>
+<META NAME="description" CONTENT="Practical Approach">
+<META NAME="keywords" CONTENT="NewTitelblatt">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2008">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="NewTitelblatt.css">
+
+<LINK REL="next" HREF="node21.html">
+<LINK REL="previous" HREF="node3.html">
+<LINK REL="up" HREF="NewTitelblatt.html">
+<LINK REL="next" HREF="node17.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A NAME="tex2html265"
+  HREF="node17.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html261"
+  HREF="NewTitelblatt.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html255"
+  HREF="node15.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html263"
+  HREF="node1.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html266"
+  HREF="node17.html">Gadgetfs Usage</A>
+<B> Up:</B> <A NAME="tex2html262"
+  HREF="NewTitelblatt.html">NewTitelblatt</A>
+<B> Previous:</B> <A NAME="tex2html256"
+  HREF="node15.html">Samsung Nexus S</A>
+ &nbsp; <B>  <A NAME="tex2html264"
+  HREF="node1.html">Contents</A></B> 
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H1><A NAME="SECTION00040000000000000000">
+ Practical Approach</A>
+</H1>
+
+<P>
+This chapter will build upon the knowledge discussed in the Chapter 2, providing practical implementation and evaluation of USB functionality with Gadgetfs module. 
+The introductory part will provide a configuration of Gadgetfs module from the user space using program usb.c. Depending on the device controller some changes are needed in configuration of Gadgetfs module to make it work with various SoCs. The configuration will provide the settings for different descriptors. Next step will handle the execution of Gadgetfs on Linux system to test its functionality. In almost the same manner the research will proceed in the analysis of communication on Android, tested directly on the host computer by using an Android emulator. The problems which arise by using an emulator for testing the gadget functionality will be presented. In addition the OTG configuration of different modes on Samsung Nexus S will be introduced.
+A sequence of measures is required to set up the Gadgetfs as a loadable kernel module on Nexus S device, to enable the right kernel configuration. In other case the device just won't boot.
+Also the ways to deal with the bricked device will be mentioned. It is necessary to compile kernel and user space programs for ARM architecture with a cross compiler. Additionally,  the results of flashing different kernel versions, tested for the purpose of this inspection will be presented. 
+The examination shows the problems and achieved solutions using Gadgetfs on Exynos SoC. The work will proceed with the evaluation of debugging information resulted in different approaches tried out during an embedded kernel debugging process. 
+The short overview about the same functionality of Gadgetfs module will be investigated with the help of  BeagleBone Black development kit. 
+
+<P>
+<BR><HR>
+<!--Table of Child-Links-->
+<A NAME="CHILD_LINKS"><STRONG>Subsections</STRONG></A>
+
+<UL CLASS="ChildLinks">
+<LI><A NAME="tex2html267"
+  HREF="node17.html">Gadgetfs Usage</A>
+<LI><A NAME="tex2html268"
+  HREF="node18.html">Cross Compilation for ARM</A>
+<LI><A NAME="tex2html269"
+  HREF="node19.html">Gadgetfs Debugging </A>
+<LI><A NAME="tex2html270"
+  HREF="node20.html">Host Enumeration</A>
+</UL>
+<!--End of Table of Child-Links-->
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A NAME="tex2html265"
+  HREF="node17.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html261"
+  HREF="NewTitelblatt.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html255"
+  HREF="node15.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html263"
+  HREF="node1.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html266"
+  HREF="node17.html">Gadgetfs Usage</A>
+<B> Up:</B> <A NAME="tex2html262"
+  HREF="NewTitelblatt.html">NewTitelblatt</A>
+<B> Previous:</B> <A NAME="tex2html256"
+  HREF="node15.html">Samsung Nexus S</A>
+ &nbsp; <B>  <A NAME="tex2html264"
+  HREF="node1.html">Contents</A></B> </DIV>
+<!--End of Navigation Panel-->
+<ADDRESS>
+root
+2014-06-12
+</ADDRESS>
+</BODY>
+</HTML>

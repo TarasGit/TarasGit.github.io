@@ -1,0 +1,166 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<!--Converted with LaTeX2HTML 2008 (1.71)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>Host Functionality</TITLE>
+<META NAME="description" CONTENT="Host Functionality">
+<META NAME="keywords" CONTENT="NewTitelblatt">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2008">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="NewTitelblatt.css">
+
+<LINK REL="previous" HREF="node5.html">
+<LINK REL="up" HREF="node4.html">
+<LINK REL="next" HREF="node7.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A NAME="tex2html144"
+  HREF="node7.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html140"
+  HREF="node4.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html136"
+  HREF="node5.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html142"
+  HREF="node1.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html145"
+  HREF="node7.html">Gadget Modules</A>
+<B> Up:</B> <A NAME="tex2html141"
+  HREF="node4.html">USB Overview</A>
+<B> Previous:</B> <A NAME="tex2html137"
+  HREF="node5.html">Topology</A>
+ &nbsp; <B>  <A NAME="tex2html143"
+  HREF="node1.html">Contents</A></B> 
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H3><A NAME="SECTION00031200000000000000">
+Host Functionality</A>
+</H3>
+In the preceding sections the general information about USB was covered. Here the host side of the communication process will be presented.
+
+<P>
+In the description of computer hardware and mobile devices there is often a mark that convey that the current hardware supports USB. This is not quite true. As a matter of fact a USB controller in computers and a USB controller in mobile devices are different objects. In the first case there is a USB  host so that the other peripheral devices can be attached to it. In the second case it's a USB device which can be attached to a USB host.
+Additionally, a USB hub can be attached to the host so that a number of USB ports can be increased which makes it possible to attach multiple devices.
+
+<P>
+Linux provides reliable drivers for all host controller standards and drivers for almost all device classes. The different device classes are shown in the Table 1: Driver Classes, below.  For all USB device classes there are drivers already present on the host side and only in the rare cases it is necessary to implement a device driver himself. 
+
+<P>
+<BR><P></P>
+<DIV ALIGN="CENTER"><A NAME="230"></A>
+<TABLE>
+<CAPTION><STRONG>Table:</STRONG>
+Driver Classes [<A
+ HREF="node22.html#pa1">29</A>],[<A
+ HREF="node22.html#pa2">24</A>]</CAPTION>
+<TR><TD><DIV ALIGN="CENTER">
+
+</DIV><TABLE CELLPADDING=3 BORDER="1">
+<TR><TD ALIGN="LEFT">&nbsp;</TD><TD ALIGN="LEFT"><SPAN  CLASS="textbf">Class</SPAN></TD>
+<TH ALIGN="LEFT"><SPAN  CLASS="textbf">Example</SPAN></TH>
+<TH ALIGN="CENTER"><SPAN  CLASS="textbf">Host Driver</SPAN></TH>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=283>&nbsp;</TD>
+</TR>
+<TR><TD ALIGN="LEFT">&nbsp;</TD><TD ALIGN="LEFT">Audio</TD>
+<TD ALIGN="LEFT">USB Sound</TD>
+<TD ALIGN="CENTER">yes</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=283>&nbsp;</TD>
+</TR>
+<TR><TD ALIGN="LEFT">&nbsp;</TD><TD ALIGN="LEFT">CDC</TD>
+<TD ALIGN="LEFT">network</TD>
+<TD ALIGN="CENTER">yes</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=283>&nbsp;</TD>
+</TR>
+<TR><TD ALIGN="LEFT">&nbsp;</TD><TD ALIGN="LEFT">HID</TD>
+<TD ALIGN="LEFT">keyboard, mouse</TD>
+<TD ALIGN="CENTER">yes</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=283>&nbsp;</TD>
+</TR>
+<TR><TD ALIGN="LEFT">&nbsp;</TD><TD ALIGN="LEFT">Mass Storage</TD>
+<TD ALIGN="LEFT">USB flash drive</TD>
+<TD ALIGN="CENTER">yes</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=283>&nbsp;</TD>
+</TR>
+<TR><TD ALIGN="LEFT">&nbsp;</TD><TD ALIGN="LEFT">RNDIS</TD>
+<TD ALIGN="LEFT">network</TD>
+<TD ALIGN="CENTER">yes</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=283>&nbsp;</TD>
+</TR>
+<TR><TD ALIGN="LEFT">&nbsp;</TD><TD ALIGN="LEFT">Serial</TD>
+<TD ALIGN="LEFT">RS-232 to USB</TD>
+<TD ALIGN="CENTER">yes</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=283>&nbsp;</TD>
+</TR>
+<TR><TD ALIGN="LEFT">&nbsp;</TD><TD ALIGN="LEFT">&nbsp;</TD>
+<TD ALIGN="LEFT">&nbsp;</TD>
+<TD ALIGN="CENTER">&nbsp;</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=283>&nbsp;</TD>
+</TR>
+</TABLE> 
+</TD></TR>
+</TABLE>
+</DIV><P></P>
+<BR>
+
+<P>
+Gadget Framework has no built-in CCID class driver. The open source project libccid provides source code for a generic USB CCID driver which can be used together with the Gadgetfs to provide CCID interface to the host.
+
+<P>
+A minimalistic host functionality can also be implemented by device.
+On-the-Go(OTG) technology  was introduced to enable support of USB devices for minimalistic USB host capability to allow a point to point communication. Such function allows embedded devices like digital cameras, mobile phones and printers to be connected to each other directly. So for example, a digital camera acting as a host can be connected to a printer so that it allows to print images from the camera. Otherwise if a camera is connected to the host computer the camera acts as a device so that it is possible to edit, delete and copy pictures. 
+There is no need of coping pictures from a digital camera to the computer and then from the computer to the smartphone. With the help of OTG it can be done without an intermediate step. Another useful case is to connect the USB flash drive directly to a smartphone. For that reason two factors needed to be considered. First, at least one of the gadgets has to support the OTG standard that is not the case by many commercially available devices, and the second, there has to be an USB OTG adapter cable so that both gadgets can be connected together. Whether the device supports OTG or not it can be usually identified by a USB Logo with a green arrow with "OTG" on it. 
+At the beginning the purpose of USB interface was used only to connect peripheral devices to computers or notebooks, whereas a USB host controlles the whole transport on the bus. Obviously the described technology has no options to connect two devices directly via USB interface, consequently, it was not possible to connect, for example, a digital camera with a printer. So no one  will be impressed that such a technology as OTG was soon developed. This allowed to implement all the connections described earlier.
+The OTG specifications allows each of the connected devices to become master on the bus. It is also worth mentioning that the USB OTG controllers consume less power compared to the USB 2.0 and upper standards. The OTG controller has also a mini USB port for connections, this makes them a perfect solution for usage in embedded devices such as smartphones. The OTG technology can be considered as a rival product for technologies like Bluetooth and FireWire.
+At the moment of connection the host is called A-Device and the gadget part is called B-Device. Moreover, the roles can change on the fly. For example, when a printer and a camera are connected in wrong direction so that the printer acts as a host and the camera as a client then the roles will switch what is done by Host Negotiation Protocol. The OTG framework is responsible for handling and responding to the OTG protocol negotiations. The OTG driver consists of both the device driver framework and the host framework so that OTG framework change roles depending on the situation.
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A NAME="tex2html144"
+  HREF="node7.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html140"
+  HREF="node4.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html136"
+  HREF="node5.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html142"
+  HREF="node1.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html145"
+  HREF="node7.html">Gadget Modules</A>
+<B> Up:</B> <A NAME="tex2html141"
+  HREF="node4.html">USB Overview</A>
+<B> Previous:</B> <A NAME="tex2html137"
+  HREF="node5.html">Topology</A>
+ &nbsp; <B>  <A NAME="tex2html143"
+  HREF="node1.html">Contents</A></B> </DIV>
+<!--End of Navigation Panel-->
+<ADDRESS>
+root
+2014-06-12
+</ADDRESS>
+</BODY>
+</HTML>

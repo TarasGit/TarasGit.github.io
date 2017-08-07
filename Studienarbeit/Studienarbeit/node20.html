@@ -1,0 +1,142 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<!--Converted with LaTeX2HTML 2008 (1.71)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>Host Enumeration</TITLE>
+<META NAME="description" CONTENT="Host Enumeration">
+<META NAME="keywords" CONTENT="NewTitelblatt">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2008">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="NewTitelblatt.css">
+
+<LINK REL="previous" HREF="node19.html">
+<LINK REL="up" HREF="node16.html">
+<LINK REL="next" HREF="node21.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A NAME="tex2html315"
+  HREF="node21.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html311"
+  HREF="node16.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html307"
+  HREF="node19.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html313"
+  HREF="node1.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html316"
+  HREF="node21.html">Conclusion</A>
+<B> Up:</B> <A NAME="tex2html312"
+  HREF="node16.html">Practical Approach</A>
+<B> Previous:</B> <A NAME="tex2html308"
+  HREF="node19.html">Gadgetfs Debugging</A>
+ &nbsp; <B>  <A NAME="tex2html314"
+  HREF="node1.html">Contents</A></B> 
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H2><A NAME="SECTION00044000000000000000">
+Host Enumeration</A>
+</H2>
+
+<P>
+Starting the user space program on Samsung Nexus S with verbose output resulted in the following message.
+
+<P>
+<PRE>
+#&gt; ./usb
+/dev/gadget/s3c-udc ep0 configured
+
+** Wed Feb 26 10:02:02 2014
+SUSPEND
+CONNECT high speed
+DISCONNECT
+CONNECT high speed
+DISCONNECT
+CONNECT high speed
+DISCONNECT
+CONNECT high speed
+</PRE>
+
+<P>
+The host kernel log file below shows the attempts of enumeration. The enumeration report error messages in endless loop without any success.
+
+<P>
+<PRE>
+[ 5453.889566] usb 2-1.5: device descriptor read/64, error 18
+[ 5454.065627] usb 2-1.5: device descriptor read/64, error 18
+[ 5454.241502] usb 2-1.5: new high-speed USB device number 4 using ehci-pci
+[ 5454.313667] usb 2-1.5: device descriptor read/64, error 18
+[ 5454.489593] usb 2-1.5: device descriptor read/64, error 18
+[ 5454.665655] usb 2-1.5: new high-speed USB device number 5 using ehci-pci
+[ 5454.686276] usb 2-1.5: device descriptor read/8, error -61
+[ 5454.806488] usb 2-1.5: device descriptor read/8, error -61
+[ 5454.981641] usb 2-1.5: new high-speed USB device number 6 using ehci-pci
+[ 5455.014346] usb 2-1.5: device descriptor read/8, error -71
+[ 5455.146450] usb 2-1.5: device descriptor read/8, error -71
+</PRE>
+
+<P>
+The log file messages show that the host proceeds with the enumeration process by reading the device descriptor from the gadget. The device side reports the connected status, see Table 3: Gadgetfs Events. The next message on the device shows the disconnect status and the host reports an error.
+
+<P>
+By analyzing the USB transfer it was possible to verify the data transfer via Wireshark USB sniffer tool. It requires the loading of the usbmon module on the Linux host. The usbmon module allows to monitor the USB transfer. The usbmon extends kernel details to the user space through file system. An analysis of the captured packages revealed that the cause of an error message were the malformed USB  packages. The error code 71 in the listing above means protocol error and the error code 61 signifies that no data is available. The result is that the host gets an error while reading and parsing endpoints so that the host tries again and again to enumerate the device. The possible cause of this behavior is the corrupt transfer of the device descriptor. It is also possible that the host parses the device descriptor in a wrong way.
+
+<P>
+To be able to use another USB device controller to test Gadgetfs module on embedded device this research used an embedded system with a different device controller chip. The suitable device was BeagleBone Black with OMAP3530 USB device controller so that in this case the special UDC driver for OMAP chip was provided in kernel. The BeagleBone Black brings an additional host USB port so that the board could be accessed and configured directly from the host computer.
+ The usage of BeagleBone Black with Gadgetfs module was successfully tested. It was possible to exchange data between the host and gadget. This issue strengthens the assumption of the buggy UDC driver of Nexus S device.
+
+<P>
+An interesting fact is that Galaxy Nexus the next generation of Nexus production line uses OMAP chip instead of Exynos. As already mentioned, the OMAP SoC is also used on the BeagleBone Black which was positively tested. It could be useful to work with Galaxy Nexus device for testing the Gadgetfs functionality and if it proves to work then to port the realization to Samsung Nexus S.
+
+<P>
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A NAME="tex2html315"
+  HREF="node21.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html311"
+  HREF="node16.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html307"
+  HREF="node19.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html313"
+  HREF="node1.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html316"
+  HREF="node21.html">Conclusion</A>
+<B> Up:</B> <A NAME="tex2html312"
+  HREF="node16.html">Practical Approach</A>
+<B> Previous:</B> <A NAME="tex2html308"
+  HREF="node19.html">Gadgetfs Debugging</A>
+ &nbsp; <B>  <A NAME="tex2html314"
+  HREF="node1.html">Contents</A></B> </DIV>
+<!--End of Navigation Panel-->
+<ADDRESS>
+root
+2014-06-12
+</ADDRESS>
+</BODY>
+</HTML>

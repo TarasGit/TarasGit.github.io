@@ -1,0 +1,183 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<!--Converted with LaTeX2HTML 2008 (1.71)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>Gadget Modules</TITLE>
+<META NAME="description" CONTENT="Gadget Modules">
+<META NAME="keywords" CONTENT="NewTitelblatt">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2008">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="NewTitelblatt.css">
+
+<LINK REL="next" HREF="node13.html">
+<LINK REL="previous" HREF="node4.html">
+<LINK REL="up" HREF="node3.html">
+<LINK REL="next" HREF="node8.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A NAME="tex2html156"
+  HREF="node8.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html152"
+  HREF="node3.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html146"
+  HREF="node6.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html154"
+  HREF="node1.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html157"
+  HREF="node8.html">USB Gadget Zero</A>
+<B> Up:</B> <A NAME="tex2html153"
+  HREF="node3.html">Analysis of USB Host</A>
+<B> Previous:</B> <A NAME="tex2html147"
+  HREF="node6.html">Host Functionality</A>
+ &nbsp; <B>  <A NAME="tex2html155"
+  HREF="node1.html">Contents</A></B> 
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H2><A NAME="SECTION00032000000000000000">
+Gadget Modules</A>
+</H2>
+The device side is unfortunately not so accurately standardized in accessing the controller mechanism as the host side. The gadget framework gives the device drivers a certain amount of modularity. 
+It should be considered that not all Linux system are capable to use the device configuration. Simply because computers and notebooks have only the USB host hardware chip. On the other hand many embedded systems include a USB device controller besides a USB host controller, an example of such system is a development board BeagleBone Black. It makes it possible to use BeagleBone Black as a host with a keyboard connected to  its USB host port and at the same time to use it as a gadget connected to the host computer.
+A lot of peripherals like smartphones and printers include a USB device controller hardware by default. Some of such devices provide its own power supply other rely on the host. 
+
+<P>
+The USB gadget framework is used to implement the peripherals and can be divided into three layers:
+
+<OL>
+<LI>USB device controller (UDC) driver is a layer that talks directly to the hardware. The implication of this statement is that different developers of device controllers need to provide their own device controller drivers.
+The UDC driver communicates directly with the USB controller chip on the device. Depending on the type of the controller many tasks are done directly in hardware. 
+In the case of Samsung Nexus S which is used in this research, it is Exynos device controller with s3c_udc_otg device controller driver. The UDC driver provides a certain number of endpoints which are associated with a queue to send and receive data.
+
+<P>
+</LI>
+<LI>Gadget drivers implement USB functions and are hardware independent because they rely on UDC driver.
+This research will introduce gadget drivers in details in a separate chapter below.
+
+<P>
+</LI>
+<LI>Layers, such as file systems and network. Those systems work with data provided by gadget drivers which is received or sent to the host via UDC driver. In most situations there are several layers which are interconnected.
+
+<P>
+</LI>
+</OL>
+
+<P>
+The control of communication is spread between the USB device controller driver and gadget driver. The UDC driver is responsible for those functions which are frequently used by the hardware. The purpose of a device controller driver is to transfer the data between the gadget driver and the controller hardware, to manage the input and the output queues of various endpoints. The main part of the functionality is implemented in a gadget driver. It covers the management of device configurations, changes of device states and the configuration of device descriptors.
+
+<P>
+
+<P>
+The Table 2: Device Controller Types, shows the different types of full speed USB device controllers supported at the moment by gadget framework:
+<BR>
+<P>
+<BR><P></P>
+<DIV ALIGN="CENTER"><A NAME="71"></A>
+<TABLE>
+<CAPTION><STRONG>Table:</STRONG>
+Device Controller Types</CAPTION>
+<TR><TD>
+<TABLE CELLPADDING=3>
+<TR><TD ALIGN="LEFT"><SPAN  CLASS="textbf">Module </SPAN></TD>
+<TH ALIGN="LEFT" VALIGN="TOP" WIDTH=113><SPAN  CLASS="textbf">Vendor</SPAN></TH>
+</TR>
+<TR><TD ALIGN="LEFT">S3C2410 ARM</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=113>Samsung</TD>
+</TR>
+<TR><TD ALIGN="LEFT">OMAP USB Device Controller</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=113>Texas Instruments</TD>
+</TR>
+<TR><TD ALIGN="LEFT">net2280</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=113>NetChip</TD>
+</TR>
+<TR><TD ALIGN="LEFT">at32ap7000</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=113>Atmel</TD>
+</TR>
+<TR><TD ALIGN="LEFT">TC86C001 "Goku-S"</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=113>Toshiba</TD>
+</TR>
+<TR><TD ALIGN="LEFT">&nbsp;</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=113>&nbsp;</TD>
+</TR>
+</TABLE>
+</TD></TR>
+</TABLE>
+</DIV><P></P>
+<BR>
+
+<P>
+The gadget driver is logically arranged above the UDC driver and picks up on its API. This work uses the gadget driver Gadgetfs with the source code file inode.c. The Gadgetfs module uses the API of the lower level UDC driver s3c_udc_otg.c. 
+There are gadget drivers for almost any device classes which are defined by the USB standard. If the gadget driver for USB mass storage is loaded then the device can be used as a storage device such as a flash drive. If the network gadget driver is loaded then it is possible to establish a network connection via a USB protocol. The described gadget drivers are mutually exclusive therefore only one gadget driver may be loaded at a moment. However, it is readily possible to remove the driver and then to load another. The modularity of the kernel allows the replacement of the device drivers.
+Depending on kind of loaded gadget driver further layers on top of it are used. For a mass storage it is a file system, for a network gadget driver there is a network stack and for a serial gadget driver there is a serial subsystem.
+
+<P>
+The gadget drivers which are described below implement a single USB functionality. 
+
+<P>
+<BR><HR>
+<!--Table of Child-Links-->
+<A NAME="CHILD_LINKS"><STRONG>Subsections</STRONG></A>
+
+<UL CLASS="ChildLinks">
+<LI><A NAME="tex2html158"
+  HREF="node8.html">USB Gadget Zero</A>
+<LI><A NAME="tex2html159"
+  HREF="node9.html">Serial USB Gadget</A>
+<LI><A NAME="tex2html160"
+  HREF="node10.html">USB Network Gadget</A>
+<LI><A NAME="tex2html161"
+  HREF="node11.html">Storage USB Gadget</A>
+<LI><A NAME="tex2html162"
+  HREF="node12.html">Gadgetfs</A>
+</UL>
+<!--End of Table of Child-Links-->
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A NAME="tex2html156"
+  HREF="node8.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html152"
+  HREF="node3.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html146"
+  HREF="node6.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html154"
+  HREF="node1.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html157"
+  HREF="node8.html">USB Gadget Zero</A>
+<B> Up:</B> <A NAME="tex2html153"
+  HREF="node3.html">Analysis of USB Host</A>
+<B> Previous:</B> <A NAME="tex2html147"
+  HREF="node6.html">Host Functionality</A>
+ &nbsp; <B>  <A NAME="tex2html155"
+  HREF="node1.html">Contents</A></B> </DIV>
+<!--End of Navigation Panel-->
+<ADDRESS>
+root
+2014-06-12
+</ADDRESS>
+</BODY>
+</HTML>
