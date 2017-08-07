@@ -1,0 +1,8 @@
+.mygrayscale{
+        filter: grayscale(0%);
+        -webkit-filter: grayscale(0%);   }
+
+.mygrayscale:hover{
+            filter: grayscale(100%);
+            -webkit-filter: grayscale(100%);   }
+
